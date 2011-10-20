@@ -1,0 +1,236 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example.test.installer</groupId>
+  <artifactId>izpack-example</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>An Example of an installer using izpack</name>  
+  
+  <!-- seems like this needs to be "jar" to accomplish a build of java code too? a bit confused
+  on the difference between putting "pom" and "jar" here. -->
+  <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <staging.dir>${project.build.directory}/staging</staging.dir>
+    <izpack-version>5.0.0-beta8</izpack-version>
+    <installer-output-filename>the-example-installer.jar</installer-output-filename>
+  </properties>
+
+  <developers>
+    <developer>
+      <id>aaron</id>
+      <name>Aaron Spear</name>
+      <email>aaron@ontherock.com</email>
+      <timezone>+7</timezone>
+    </developer>
+  </developers>
+<!--
+this is the block of dependencies that I used with the older maven and standalone compiler builds that seem to work fine...
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-standalone-compiler</artifactId>
+      <version>4.3.4</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>2.0.5</version>
+    </dependency>
+  </dependencies>
+  -->
+  
+  <!-- here is a gigantic depdendency block in a desperate effort to figure out what I actually need.  I would hope that in 
+  reality I only need one dependency, but I didn't seem to see an "izpack" artifact that was a jar on the maven repo -->
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-test</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-listener</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-dist</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-utils</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-ant</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-compiler</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-uninstaller</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-event</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-panel</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-installer</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-gui</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-core</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-util</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-api</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-tools</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-native</artifactId>
+      <version>${izpack-version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.izpack</groupId>
+          <artifactId>izpack-maven-plugin</artifactId>
+          <version>5.0.0-beta8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
+    <plugins>
+      <!-- configure the compiler to use 1.5 -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+  
+      <!-- copy all resources to the staging directory.  Not sure why we cannot just stage ones
+      we do not change in place... -->
+      <plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${staging.dir}</outputDirectory>
+              
+              <!-- recursive copy of all resource under src/main/izpack. this is the stuff to install as well as install.xml and panel data and such -->
+							<resources>
+								<resource>
+									<directory>src/main/izpack</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+								<!-- uncomment this code to copy the java code and as a result do a build of it -->
+                <resource>
+									<directory>src/main/java</directory>
+									<excludes>
+										<exclude>*.java</exclude>
+									</excludes>
+									<filtering>false</filtering>
+								</resource>
+                      
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.izpack</groupId>
+        <artifactId>izpack-maven-plugin</artifactId>
+        <configuration>
+          <descriptorEncoding>UTF-8</descriptorEncoding>
+        </configuration>
+        <executions>
+          <execution>
+            <id>sdk-installer</id>
+            <phase>package</phase>
+            <goals>
+              <goal>izpack</goal>
+            </goals>
+            <configuration>
+              <baseDir>${staging.dir}</baseDir>
+              <installFile>${staging.dir}/install.xml</installFile>
+              <output>${project.build.directory}/${installer-output-filename}</output>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

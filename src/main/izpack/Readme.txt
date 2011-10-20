@@ -1,0 +1,1 @@
+This is a readme for the izpack example installer

@@ -1,0 +1,7 @@
+.project
+.classpath
+bin
+target
+.wtpmodules
+.settings
+GeneratedVersion.java
