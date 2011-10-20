@@ -52,7 +52,7 @@
     BTW for those of you using google and you found this:  comment out the line below and you have a nice self contained working example
     of an IZpack 5 installer.
     -->
-    <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>    
+    <!--<panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>    -->
        
     <panel classname="TargetPanel" id="install_dir"/>
     <panel classname="PacksPanel" id="sdk_pack_select"/>
