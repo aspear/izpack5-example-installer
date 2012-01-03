@@ -1,9 +1,0 @@
-copyright 2011 Aaron Spear 
-This work is released under the MIT license.  You can do whatever you wish with it, but I am absolutely 
-not responsible for anything whatsoever.  
-
-https://github.com/aspear/izpack5-example-installer
-
-This project is an example of how to create a working Izpack 5.x installer using maven as the build system.
-I make absolutely no claims that it is a GOOD example, but it is an example that works.  I would be quite
-happy to receive any feedback or ideas on how to improve it.

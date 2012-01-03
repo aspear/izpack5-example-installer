@@ -44,14 +44,11 @@
   <jar src="custom/izpack-panels.jar" stage="both"/>
   
   <panels>
+    
     <!-- FIXME why doesn't HTMLHelloPanel work any more?  it is nice not to have the "Please read the following information" text ... -->
     <panel classname="HTMLInfoPanel" id="welcome"/>
     
-    <!-- this is where the class loading evil happens.  why the heck can it not find my custom panel? com.izforge.izpack.panels.mypanels.MyHelloPanel 
-    seems like no matter what I try for the package and/or classname below it does not work...
-    BTW for those of you using google and you found this:  comment out the line below and you have a nice self contained working example
-    of an IZpack 5 installer.
-    -->
+    <!-- this is our custom panel, loaded from the izpack-panels.jar file -->    
     <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>
        
     <panel classname="TargetPanel" id="install_dir"/>

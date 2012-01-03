@@ -11,6 +11,7 @@
   on the difference between putting "pom" and "jar" here. -->
   <packaging>jar</packaging>
   
+  <!-- maven repository where the izpack-maven-plugin  and such live -->
   <repositories>
     <repository>
       <id>codehaus-releases</id>
@@ -34,6 +35,8 @@
     </developer>
   </developers>
 
+  <!-- must have a dependency on our separate package that contains the custom
+  panels -->
   <dependencies>
     <dependency>
       <groupId>com.example.test.installer</groupId>
@@ -41,94 +44,11 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  
-  <!-- here is a gigantic depdendency block in a desperate effort to figure out what I actually need.  I would hope that in 
-  reality I only need one dependency, but I didn't seem to see an "izpack" artifact that was a jar on the maven repo 
-  <dependencies>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-test</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-listener</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-dist</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-utils</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-ant</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-compiler</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-uninstaller</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-event</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-panel</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-installer</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-gui</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-core</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-util</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-api</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-tools</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-native</artifactId>
-      <version>${izpack.version}</version>
-    </dependency>
-  </dependencies>
-  -->
-  
+ 
   <build>
+  
+    <defaultGoal>package</defaultGoal>
+  
     <pluginManagement>
       <plugins>
         <plugin>
@@ -160,18 +80,8 @@
     </pluginManagement>
     
     <plugins>
-      <!-- configure the compiler to use 1.6 -->
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-  
-      <!-- copy all resources to the staging directory.  Not sure why we cannot just stage ones
-      we do not change in place... -->
+        
+      <!-- copy all resources to the staging directory. -->
       <plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -225,10 +135,9 @@
        </executions>
       </plugin>
       
-          <!--
+    <!--
      We need to tell the izpack-maven-plugin what to use as the base directory (this is our staging area), and also tell it the install file to use:
-     -->
-
+    -->
     <plugin>
        <groupId>org.codehaus.izpack</groupId>
        <artifactId>izpack-maven-plugin</artifactId>
@@ -248,6 +157,9 @@
              </configuration>
           </execution>
        </executions>
+       <!-- must have a dependency here on any code used in the installer, otherwise the classloader
+       will not find it.  So in this case we need our panels and then the package that contains the base classes
+       for the panels --> 
        <dependencies>
           <dependency>
             <groupId>org.codehaus.izpack</groupId>
