@@ -10,11 +10,18 @@
   <!-- seems like this needs to be "jar" to accomplish a build of java code too? a bit confused
   on the difference between putting "pom" and "jar" here. -->
   <packaging>jar</packaging>
+  
+  <repositories>
+    <repository>
+      <id>codehaus-releases</id>
+      <url>https://nexus.codehaus.org/content/repositories/releases</url>
+    </repository>
+ </repositories>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <staging.dir>${project.build.directory}/staging</staging.dir>
-    <izpack-version>5.0.0-beta8</izpack-version>
+    <izpack.version>5.0.0-beta9</izpack.version>
     <installer-output-filename>the-example-installer.jar</installer-output-filename>
   </properties>
 
@@ -26,107 +33,100 @@
       <timezone>+7</timezone>
     </developer>
   </developers>
-<!--
-this is the block of dependencies that I used with the older maven and standalone compiler builds that seem to work fine...
+
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-standalone-compiler</artifactId>
-      <version>4.3.4</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>2.0.5</version>
+      <groupId>com.example.test.installer</groupId>
+      <artifactId>izpack-panels</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  -->
   
   <!-- here is a gigantic depdendency block in a desperate effort to figure out what I actually need.  I would hope that in 
-  reality I only need one dependency, but I didn't seem to see an "izpack" artifact that was a jar on the maven repo -->
+  reality I only need one dependency, but I didn't seem to see an "izpack" artifact that was a jar on the maven repo 
   <dependencies>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-test</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-listener</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-dist</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-utils</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-ant</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-compiler</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-uninstaller</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-event</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-panel</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-installer</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-gui</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-core</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-util</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-api</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-tools</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
       <artifactId>izpack-native</artifactId>
-      <version>${izpack-version}</version>
+      <version>${izpack.version}</version>
     </dependency>
   </dependencies>
+  -->
   
   <build>
     <pluginManagement>
@@ -134,7 +134,7 @@ this is the block of dependencies that I used with the older maven and standalon
         <plugin>
           <groupId>org.codehaus.izpack</groupId>
           <artifactId>izpack-maven-plugin</artifactId>
-          <version>5.0.0-beta8</version>
+          <version>${izpack.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -160,7 +160,7 @@ this is the block of dependencies that I used with the older maven and standalon
     </pluginManagement>
     
     <plugins>
-      <!-- configure the compiler to use 1.5 -->
+      <!-- configure the compiler to use 1.6 -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -194,15 +194,7 @@ this is the block of dependencies that I used with the older maven and standalon
 									</includes>
 									<filtering>false</filtering>
 								</resource>
-								<!-- uncomment this code to copy the java code and as a result do a build of it -->
-                <resource>
-									<directory>src/main/java</directory>
-									<excludes>
-										<exclude>*.java</exclude>
-									</excludes>
-									<filtering>false</filtering>
-								</resource>
-                      
+                
 							</resources>
 						</configuration>
 					</execution>
@@ -210,26 +202,66 @@ this is the block of dependencies that I used with the older maven and standalon
 			</plugin>
       
       <plugin>
-        <groupId>org.codehaus.izpack</groupId>
-        <artifactId>izpack-maven-plugin</artifactId>
-        <configuration>
+       <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+         
+             <execution>
+               <!-- copy izpack custom (custom panels, etc.) jars to izpack staging custom -->
+               <id>copy-izpack-dependencies</id>
+               <phase>prepare-package</phase>
+               <goals>
+                  <goal>copy-dependencies</goal>
+               </goals>
+               <configuration>
+                  <outputDirectory>${staging.dir}/custom</outputDirectory>
+                  <excludeTransitive>false</excludeTransitive>
+                  <stripVersion>true</stripVersion>
+                  <overWriteReleases>true</overWriteReleases>
+                  <overWriteSnapshots>true</overWriteSnapshots>
+                  <overWriteIfNewer>true</overWriteIfNewer>
+                  <includeArtifactIds>izpack-panels</includeArtifactIds> <!-- IMPORTANT: this causes *only* our custom panels to be copied -->
+               </configuration>
+            </execution>
+       </executions>
+      </plugin>
+      
+          <!--
+     We need to tell the izpack-maven-plugin what to use as the base directory (this is our staging area), and also tell it the install file to use:
+     -->
+
+    <plugin>
+       <groupId>org.codehaus.izpack</groupId>
+       <artifactId>izpack-maven-plugin</artifactId>
+       <version>${izpack.version}</version>
+       <configuration>
           <descriptorEncoding>UTF-8</descriptorEncoding>
         </configuration>
-        <executions>
+       <executions>
           <execution>
-            <id>sdk-installer</id>
-            <phase>package</phase>
-            <goals>
-              <goal>izpack</goal>
-            </goals>
-            <configuration>
-              <baseDir>${staging.dir}</baseDir>
-              <installFile>${staging.dir}/install.xml</installFile>
-              <output>${project.build.directory}/${installer-output-filename}</output>
-            </configuration>
+             <phase>package</phase>
+             <goals><goal>izpack</goal></goals>
+             <configuration>
+                <!-- base for relative paths in izpack descriptor -->
+                <baseDir>${staging.dir}</baseDir>
+                <installFile>${staging.dir}/install.xml</installFile>
+                 <output>${project.build.directory}/${installer-output-filename}</output>
+             </configuration>
           </execution>
-        </executions>
-      </plugin>
+       </executions>
+       <dependencies>
+          <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-panel</artifactId>
+            <version>${izpack.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.example.test.installer</groupId>
+            <artifactId>izpack-panels</artifactId>
+            <version>1.0-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+    </plugin>
+ 
     </plugins>
   </build>
 

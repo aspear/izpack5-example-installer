@@ -41,7 +41,7 @@
   </variables>
   
    <!-- pull in the built jar file for our custom panel -->
-  <jar src="../izpack-example-1.0-SNAPSHOT.jar" stage="both"/>
+  <jar src="custom/izpack-panels.jar" stage="both"/>
   
   <panels>
     <!-- FIXME why doesn't HTMLHelloPanel work any more?  it is nice not to have the "Please read the following information" text ... -->

@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example.test.installer</groupId>
+  <artifactId>izpack-panels</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>izpack example installer panels</name>  
+  
+  <!-- seems like this needs to be "jar" to accomplish a build of java code too? a bit confused
+  on the difference between putting "pom" and "jar" here. -->
+  <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <izpack.version>5.0.0-beta9</izpack.version>
+  </properties>
+
+  <developers>
+    <developer>
+      <id>aaron</id>
+      <name>Aaron Spear</name>
+      <email>aaron@ontherock.com</email>
+      <timezone>+7</timezone>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.izpack</groupId>
+      <artifactId>izpack-compiler</artifactId>
+      <version>${izpack.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+   
+ <build>
+
+    <defaultGoal>package</defaultGoal>
+
+    <plugins>
+    
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+  
+</project>
