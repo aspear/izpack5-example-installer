@@ -13,3 +13,12 @@ The project is broken into two pieces.  The panels directory contains a maven pr
 a jar containing the implementation of a custom panel.  In this case I just copied the HelloPanel.java that
 is included as a part of IZpack and changed the name to prove the concept.  The "installer" sub directory 
 contains the build of the installer itself that packages up the custom panel as a part of the installer.
+
+to build:
+
+cd panels
+mvn clean install
+
+cd ../installer
+mvn clean package
+
