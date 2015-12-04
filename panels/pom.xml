@@ -13,7 +13,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <izpack.version>5.0.0-beta9</izpack.version>
+    <izpack.version>5.0.6</izpack.version>
   </properties>
 
   <developers>

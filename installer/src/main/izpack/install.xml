@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<installation version="1.0">
+<installation version="5.0">
   <info>
     <appname>IZpack 5 example installer</appname>
-    <appversion>1.0.0.123456</appversion>
+    <appversion>1.0.0.123457</appversion>
     <url>http://example.com</url>    
     <authors>
         <author name="Aaron Spear" email="aaron@ontherock.com"/>
