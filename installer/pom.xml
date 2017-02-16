@@ -173,7 +173,46 @@
           </dependency>
         </dependencies>
     </plugin>
- 
+   <plugin>
+      <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.15</version>
+                <executions>
+                    <execution>
+                        <id>l4j-gui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <jar>target/${installer-output-filename}</jar>
+                            <outfile>target/${project.artifactId}.exe</outfile>
+                            <classPath>
+                                <mainClass>com.izforge.izpack.installer.bootstrap.Installer</mainClass>
+                            </classPath>
+                            <jre>
+                                <bundledJre64Bit>false</bundledJre64Bit>
+                                <bundledJreAsFallback>false</bundledJreAsFallback>
+                                <minVersion>1.6.0</minVersion>
+                                <jdkPreference>preferJre</jdkPreference>
+                                <runtimeBits>32</runtimeBits>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>C</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <internalName>AppName</internalName>
+                                <originalFilename>${project.artifactId}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
     </plugins>
   </build>
 
