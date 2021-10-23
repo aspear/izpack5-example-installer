@@ -1,28 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-    http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example.test.installer</groupId>
-    <artifactId>the-installer</artifactId>
-    <packaging>pom</packaging>
 
+    <groupId>com.example.test.installer</groupId>
+    <artifactId>izpack-example</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Example IZpack 5.0 Installer</name>
-    
-    <profiles>
- 
-      <profile>
-        <id>full</id>
-        <activation>            
-      		<activeByDefault>true</activeByDefault>        
-      	</activation>	    
-      	<modules>
-	        <module>panels</module>
-          <module>installer</module>
-	    </modules>
-       </profile>
-    </profiles>
+    <name>IzPack Installer Example</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <izpack.version>5.1.3</izpack.version>
+    </properties>
+
+    <modules>
+        <module>panels</module>
+        <module>installer</module>
+    </modules>
 </project>

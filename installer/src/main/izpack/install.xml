@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <installation version="5.0">
-  <info>
-    <appname>IZpack 5 example installer</appname>
-    <appversion>1.0.0.123457</appversion>
-    <url>http://example.com</url>    
-    <authors>
-        <author name="Aaron Spear" email="aaron@ontherock.com"/>
-    </authors>
-  </info>
-  <guiprefs height="400" resizable="no" width="640">
-    <modifier key="useButtonIcons" value="yes"/>
-    <modifier key="useLabelIcons" value="no"/>
-    <modifier key="labelGap" value="2"/>
-    <modifier key="layoutAnchor" value="NORTHWEST"/>
-    <modifier key="useHeadingPanel" value="no"/>
-    <modifier key="headingImageOnLeft" value="yes"/>
-    <modifier key="headingLineCount" value="1"/>
-    <modifier key="headingFontSize" value="1.5"/>
-    <modifier key="headingBackgroundColor" value="0x00ffffff"/>
-    <modifier key="headingPanelCounter" value="progressbar"/>
-    <modifier key="headingPanelCounterPos" value="inNavigationPanel"/>
-  </guiprefs>
-  <locale>
-    <langpack iso3="eng"/>
-  </locale>
-  <resources>
-    <res id="LicencePanel.licence" src="Licence.txt"/>
-    <res id="InfoPanel.info" src="Readme.txt"/>
-    <res id="HTMLHelloPanel.welcome" src="welcome.html"/>
-    <res id="HTMLInfoPanel.welcome" src="welcome.html"/>
-    <res id="IZPackLogo" src="izpack-logo-medium.png"/>
-    <res id="Installer.image" src="clouds.jpg"/>
-    <res id="TargetPanel.dir.windows" src="TargetDirWindows.txt"/>
-    <res id="TargetPanel.dir.unix" src="TargetDirUnix.txt"/>
-  </resources>
-  <variables>
-    <variable name="InstallerFrame.logfilePath" value="Default"/>
-    <variable name="WELCOME_TEXT" value="IZpack installer example"/>
-    <variable name="WELCOME_VERSION" value="Version: 12345"/>
-  </variables>
-  
-   <!-- pull in the built jar file for our custom panel -->
-  <jar src="custom/izpack-panels.jar" stage="both"/>
-  
-  <panels>
-    
-    <!-- FIXME why doesn't HTMLHelloPanel work any more?  it is nice not to have the "Please read the following information" text ... -->
-    <panel classname="HTMLInfoPanel" id="welcome"/>
-    
-    <!-- this is our custom panel, loaded from the izpack-panels.jar file -->    
-    <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>
-       
-    <panel classname="TargetPanel" id="install_dir"/>
-    <panel classname="PacksPanel" id="sdk_pack_select"/>
-    <panel classname="InstallPanel" id="install"/>
-    <panel classname="FinishPanel" id="finish"/>
-  </panels>
-  
-  <packs>
-    <pack name="ColoradoPics" preselected="yes" required="no">
-      <description>Some nice pictures of the Maroon Bells in Aspen Colorado.</description>
-      <file src="pack1_content/pack1_content.zip" targetdir="$INSTALL_PATH/docs" unpack="true"/>
-    </pack>
-    <pack name="DirtBikes" required="yes">
-      <description>Some pictures of dirt bikes because I wanted another pack in the example.</description>
-      <file src="pack2_content/adave_willet_jim_davies.jpg" targetdir="$INSTALL_PATH"/>
-    </pack>
-  </packs>
+    <info>
+        <appname>IzPack Installer Example</appname>
+        <appversion>1.0-SNAPSHOT</appversion>
+        <url>https://github.com/aspear/izpack5-example-installer</url>
+        <authors>
+            <author name="Aaron Spear" email="aaron@ontherock.com"/>
+        </authors>
+    </info>
+
+    <guiprefs height="400" resizable="no" width="640">
+        <modifier key="useButtonIcons" value="yes"/>
+        <modifier key="useLabelIcons" value="no"/>
+        <modifier key="labelGap" value="2"/>
+        <modifier key="layoutAnchor" value="NORTHWEST"/>
+        <modifier key="useHeadingPanel" value="no"/>
+        <modifier key="headingImageOnLeft" value="yes"/>
+        <modifier key="headingLineCount" value="1"/>
+        <modifier key="headingFontSize" value="1.5"/>
+        <modifier key="headingBackgroundColor" value="0x00ffffff"/>
+        <modifier key="headingPanelCounter" value="progressbar"/>
+        <modifier key="headingPanelCounterPos" value="inNavigationPanel"/>
+    </guiprefs>
+
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <resources>
+        <res id="CustomLangPack.xml_eng" src="CustomLangPack_eng.xml"/>
+        <res id="HTMLHelloPanel.welcome" src="welcome.html"/>
+        <res id="HTMLInfoPanel.welcome" src="welcome.html"/>
+        <res id="InfoPanel.info" src="Readme.txt"/>
+        <res id="Installer.image" src="clouds.jpg"/>
+        <res id="IZPackLogo" src="izpack-logo-medium.png"/>
+        <res id="LicencePanel.licence" src="Licence.txt"/>
+        <res id="TargetPanel.dir.windows" src="TargetDirWindows.txt"/>
+        <res id="TargetPanel.dir.unix" src="TargetDirUnix.txt"/>
+    </resources>
+
+    <variables>
+        <variable name="InstallerFrame.logfilePath" value="Default"/>
+        <variable name="WELCOME_TEXT" value="IZpack installer example"/>
+        <variable name="WELCOME_VERSION" value="Version: 12345"/>
+    </variables>
+
+    <!-- pull in the built jar file for our custom panel -->
+    <jar src="custom/izpack-panels.jar" stage="both"/>
+
+    <panels>
+        <!-- FIXME why doesn't HTMLHelloPanel work any more?  it is nice not to have the "Please read the following information" text ... -->
+        <panel classname="HTMLInfoPanel" id="welcome"/>
+
+        <!-- this is our custom panel, loaded from the izpack-panels.jar file -->
+        <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>
+
+        <panel classname="TargetPanel" id="install_dir"/>
+        <panel classname="PacksPanel" id="sdk_pack_select"/>
+        <panel classname="InstallPanel" id="install"/>
+        <panel classname="FinishPanel" id="finish"/>
+    </panels>
+
+    <packs>
+        <pack name="ColoradoPics" preselected="yes" required="no">
+            <description>Some nice pictures of the Maroon Bells in Aspen Colorado.</description>
+            <file src="pack1_content/pack1_content.zip" targetdir="$INSTALL_PATH/docs" unpack="true"/>
+        </pack>
+        <pack name="DirtBikes" required="yes">
+            <description>Some pictures of dirt bikes because I wanted another pack in the example.</description>
+            <file src="pack2_content/adave_willet_jim_davies.jpg" targetdir="$INSTALL_PATH"/>
+        </pack>
+    </packs>
 </installation>
