@@ -24,6 +24,7 @@ package com.izforge.izpack.panels.mypanels;
 import com.izforge.izpack.api.GuiId;
 import com.izforge.izpack.api.data.Info;
 import com.izforge.izpack.api.data.Panel;
+import com.izforge.izpack.api.resource.Messages;
 import com.izforge.izpack.api.resource.Resources;
 import com.izforge.izpack.gui.IzPanelLayout;
 import com.izforge.izpack.gui.LabelFactory;
@@ -38,16 +39,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * The Hello panel class.
+ * The MyHelloPanel panel class.
  *
  * @author Julien Ponge
  */
 public class MyHelloPanel extends IzPanel
 {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 3257848774955905587L;
 
     /**
@@ -63,14 +60,13 @@ public class MyHelloPanel extends IzPanel
 
     /**
      * Creates a new MyHelloPanel object with the given layout manager. Valid layout manager are the
-     * IzPanelLayout and the GridBagLayout. New panels should be use the IzPanelLaout. If lm is
+     * IzPanelLayout and the GridBagLayout. New panels should use the IzPanelLayout. If lm is
      * null, no layout manager will be created or initialized.
      *
      * @param parent The parent IzPack installer frame.
      * @param idata  The installer internal installDataGUI.
      * @param layout layout manager to be used with this IzPanel
      */
-
     public MyHelloPanel(Panel panel, InstallerFrame parent, GUIInstallData idata, LayoutManager2 layout, Resources resources)
     {
         // Layout handling. This panel was changed from a mixed layout handling
@@ -78,16 +74,17 @@ public class MyHelloPanel extends IzPanel
         // example how to use the IzPanelLayout. For this there are some comments
         // which are excrescent for a "normal" panel.
         // Set a IzPanelLayout as layout for this panel.
-        // This have to be the first line during layout if IzPanelLayout will be used.
+        // This has to be the first line during layout if IzPanelLayout will be used.
 
-	//com.izforge.izpack.installer.gui.InstallerFrame cannot be converted to com.izforge.izpack.api.data.Panel
+        //com.izforge.izpack.installer.gui.InstallerFrame cannot be converted to com.izforge.izpack.api.data.Panel
 	/*
 	public IzPanel(Panel panel, InstallerFrame parent, GUIInstallData installData, Resources resources)
 	*/
         super(panel, parent, idata, layout, resources);
         // We create and put the labels
-        String welcomeText = installData.getLangpack().getString("MyHelloPanel.welcome1") + idata.getInfo().getAppName() + " "
-                + idata.getInfo().getAppVersion() + installData.getLangpack().getString("MyHelloPanel.welcome2");
+        Messages messages = installData.getMessages();
+        String welcomeText = messages.get("MyHelloPanel.welcome1") + idata.getInfo().getAppName() + " version "
+                + idata.getInfo().getAppVersion() + messages.get("MyHelloPanel.welcome2");
         JLabel welcomeLabel = LabelFactory.create(welcomeText, parent.getIcons().get("host"), LEADING);
         welcomeLabel.setName(GuiId.HELLO_PANEL_LABEL.id);
         // IzPanelLayout is a constraint orientated layout manager. But if no constraint is
@@ -106,26 +103,25 @@ public class MyHelloPanel extends IzPanel
 
         if (!authors.isEmpty())
         {
-            String authorText = installData.getLangpack().getString("MyHelloPanel.authors");
+            String authorText = messages.get("MyHelloPanel.authors");
             JLabel appAuthorsLabel = LabelFactory.create(authorText, parent.getIcons()
                     .get("information"), LEADING);
-            // If nothing will be sad to the IzPanelLayout the position of an add will be
-            // determined in the default constraint. For labels it is CURRENT_ROW, NEXT_COLUMN.
+            // If nothing is added to the IzPanelLayout the position of an add will be
+            // determined in the default constraint. For labels, it is CURRENT_ROW, NEXT_COLUMN.
             // But at this point we would place the label in the next row. It is possible
-            // to create an IzPanelConstraint with this options, but it is also possible to
+            // to create an IzPanelConstraint with these options, but it is also possible to
             // use simple the NEXT_LINE object as constraint. Attention!! Do not use
             // LayoutConstants.NEXT_ROW else LayoutConstants.NEXT_LINE because NEXT_ROW is an
-            // int and with it an other add method will be used without any warning (there the
+            // int and with it another add method will be used without any warning (there the
             // parameter will be used as position of the component in the panel, not the
-            // layout manager.
+            // layout manager).
             add(appAuthorsLabel, LayoutConstants.NEXT_LINE);
 
-            JLabel label;
             for (Info.Author author : authors)
             {
                 String email = (author.getEmail() != null && author.getEmail().length() > 0) ? (" <"
                         + author.getEmail() + ">") : "";
-                label = LabelFactory.create(" - " + author.getName() + email, parent.getIcons()
+                JLabel label = LabelFactory.create(" - " + author.getName() + email, parent.getIcons()
                         .get("empty"), LEADING);
                 add(label, NEXT_LINE);
             }
@@ -134,17 +130,17 @@ public class MyHelloPanel extends IzPanel
 
         if (idata.getInfo().getAppURL() != null)
         {
-            String urlText = installData.getLangpack().getString("MyHelloPanel.url") + idata.getInfo().getAppURL();
+            String urlText = messages.get("MyHelloPanel.url") + idata.getInfo().getAppURL();
             JLabel appURLLabel = LabelFactory.create(urlText, parent.getIcons().get("bookmark"),
                     LEADING);
             add(appURLLabel, LayoutConstants.NEXT_LINE);
         }
-        // At end of layouting we should call the completeLayout method also they do nothing.
+        // At end of layout we should call the completeLayout method also they do nothing.
         getLayoutHelper().completeLayout();
     }
 
     /**
-     * Indicates wether the panel has been validated or not.
+     * Indicates whether the panel has been validated or not.
      *
      * @return Always true.
      */
