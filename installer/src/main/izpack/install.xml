@@ -9,7 +9,7 @@
         </authors>
     </info>
 
-    <guiprefs height="400" resizable="no" width="640">
+    <guiprefs width="640" height="400" resizable="no">
         <modifier key="useButtonIcons" value="yes"/>
         <modifier key="useLabelIcons" value="no"/>
         <modifier key="labelGap" value="2"/>
@@ -28,37 +28,37 @@
     </locale>
 
     <resources>
-        <res id="CustomLangPack.xml_eng" src="CustomLangPack_eng.xml"/>
         <res id="HTMLHelloPanel.welcome" src="welcome.html"/>
-        <res id="HTMLInfoPanel.welcome" src="welcome.html"/>
         <res id="InfoPanel.info" src="Readme.txt"/>
         <res id="Installer.image" src="clouds.jpg"/>
         <res id="IZPackLogo" src="izpack-logo-medium.png"/>
         <res id="LicencePanel.licence" src="Licence.txt"/>
-        <res id="TargetPanel.dir.windows" src="TargetDirWindows.txt"/>
-        <res id="TargetPanel.dir.unix" src="TargetDirUnix.txt"/>
+        <res id="CustomLangPack.xml_eng" src="CustomLangPack_eng.xml"/>
     </resources>
 
     <variables>
         <variable name="InstallerFrame.logfilePath" value="Default"/>
-        <variable name="WELCOME_TEXT" value="IZpack installer example"/>
-        <variable name="WELCOME_VERSION" value="Version: 12345"/>
+        <variable name="WELCOME_TEXT" value="Welcome to IzPack Installer Example"/>
+        <variable name="TargetPanel.dir.windows" value="$USER_HOME\IzPackExample"/>
+        <variable name="TargetPanel.dir.unix" value="$USER_HOME/IzPackExample"/>
     </variables>
 
     <!-- pull in the built jar file for our custom panel -->
     <jar src="custom/izpack-panels.jar" stage="both"/>
 
     <panels>
-        <!-- FIXME why doesn't HTMLHelloPanel work any more?  it is nice not to have the "Please read the following information" text ... -->
-        <panel classname="HTMLInfoPanel" id="welcome"/>
-
+        <!-- Default id for HTMLHelloPanel is info, changing it to welcome for better readability. -->
+        <panel classname="HTMLHelloPanel" id="welcome"/>
+        <!-- Default id for InfoPanel is info, no need to specify. -->
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
         <!-- this is our custom panel, loaded from the izpack-panels.jar file -->
-        <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel" id="myHello"/>
+        <panel classname="com.izforge.izpack.panels.mypanels.MyHelloPanel"/>
 
-        <panel classname="TargetPanel" id="install_dir"/>
-        <panel classname="PacksPanel" id="sdk_pack_select"/>
-        <panel classname="InstallPanel" id="install"/>
-        <panel classname="FinishPanel" id="finish"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
     </panels>
 
     <packs>
